@@ -1,0 +1,637 @@
+# depslib dependency file v1.0
+1526678199 source:c:\users\georgetomes\projects\games\rogue3\rogue3\actor.cpp
+	"stdafx.h"
+	"Actor.h"
+	"Engine.h"
+	<math.h>
+
+1526668067 c:\users\georgetomes\projects\games\rogue3\rogue3\stdafx.h
+	"targetver.h"
+	<stdio.h>
+	<tchar.h>
+	"libtcod.hpp"
+	"Persistent.h"
+
+1505163064 c:\users\georgetomes\projects\games\rogue3\rogue3\targetver.h
+	<SDKDDKVer.h>
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\libtcod.hpp
+	"libtcod.h"
+	"list.hpp"
+	"color.hpp"
+	"console.hpp"
+	"image.hpp"
+	"sys.hpp"
+	"mersenne.hpp"
+	"mouse.hpp"
+	"bresenham.hpp"
+	"noise.hpp"
+	"fov.hpp"
+	"path.hpp"
+	"lex.hpp"
+	"parser.hpp"
+	"tree.hpp"
+	"bsp.hpp"
+	"heightmap.hpp"
+	"zip.hpp"
+	"namegen.hpp"
+	"txtfield.hpp"
+
+1346292656 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\libtcod.h
+	<wchar.h>
+	"SDL/SDL.h"
+	"list.h"
+	"color.h"
+	"console.h"
+	"image.h"
+	"mouse.h"
+	"sys.h"
+	"mersenne.h"
+	"bresenham.h"
+	"noise.h"
+	"fov.h"
+	"path.h"
+	"lex.h"
+	"parser.h"
+	"tree.h"
+	"bsp.h"
+	"heightmap.h"
+	"zip.h"
+	"namegen.h"
+	"txtfield.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\list.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\color.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\console.h
+	"console_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\console_types.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\image.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\mouse.h
+	"mouse_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\mouse_types.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\sys.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\mersenne.h
+	"mersenne_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\mersenne_types.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\bresenham.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\noise.h
+	"noise_defaults.h"
+
+1317869308 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\noise_defaults.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\fov.h
+	"fov_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\fov_types.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\path.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\lex.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\parser.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\tree.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\bsp.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\heightmap.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\zip.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\namegen.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\txtfield.h
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\list.hpp
+	<string.h>
+	<stdlib.h>
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\color.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\console.hpp
+	"console_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\image.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\sys.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\mersenne.hpp
+	"mersenne_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\mouse.hpp
+	"mouse_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\bresenham.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\noise.hpp
+	"noise_defaults.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\fov.hpp
+	"fov_types.h"
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\path.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\lex.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\parser.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\tree.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\bsp.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\heightmap.hpp
+
+1346292478 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\zip.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\namegen.hpp
+
+1346292484 c:\users\georgetomes\projects\games\rogue3\libtcod-1.5.1\include\\txtfield.hpp
+	"color.hpp"
+
+1526668045 c:\users\georgetomes\projects\games\rogue3\rogue3\persistent.h
+
+1526921759 c:\users\georgetomes\projects\games\rogue3\rogue3\actor.h
+	"Constants.h"
+	"Attacker.h"
+	"Destructible.h"
+	"AI.h"
+	"Pickable.h"
+	"Container.h"
+
+1526587265 c:\users\georgetomes\projects\games\rogue3\rogue3\constants.h
+
+1526672060 c:\users\georgetomes\projects\games\rogue3\rogue3\attacker.h
+
+1526674063 c:\users\georgetomes\projects\games\rogue3\rogue3\destructible.h
+	"Constants.h"
+
+1526920174 c:\users\georgetomes\projects\games\rogue3\rogue3\ai.h
+
+1526677770 c:\users\georgetomes\projects\games\rogue3\rogue3\pickable.h
+
+1526672220 c:\users\georgetomes\projects\games\rogue3\rogue3\container.h
+
+1526922240 c:\users\georgetomes\projects\games\rogue3\rogue3\engine.h
+	"Constants.h"
+	"Actor.h"
+	"Map.h"
+	"UIManager.h"
+	"ParticleSystem.h"
+
+1526669514 c:\users\georgetomes\projects\games\rogue3\rogue3\map.h
+	"Tile.h"
+
+1526669808 c:\users\georgetomes\projects\games\rogue3\rogue3\tile.h
+	"Constants.h"
+
+1526682438 c:\users\georgetomes\projects\games\rogue3\rogue3\uimanager.h
+
+1526505099 c:\users\georgetomes\projects\games\rogue3\rogue3\particlesystem.h
+	"Particle.h"
+
+1526653374 c:\users\georgetomes\projects\games\rogue3\rogue3\particle.h
+
+1526675831 source:c:\users\georgetomes\projects\games\rogue3\rogue3\ai.cpp
+	"stdafx.h"
+	"AI.h"
+	"PlayerAI.h"
+	"MonsterAI.h"
+	"ConfusedMonsterAI.h"
+
+1526675626 c:\users\georgetomes\projects\games\rogue3\rogue3\playerai.h
+	"AI.h"
+
+1526675623 c:\users\georgetomes\projects\games\rogue3\rogue3\monsterai.h
+	"AI.h"
+
+1526683823 c:\users\georgetomes\projects\games\rogue3\rogue3\confusedmonsterai.h
+	"AI.h"
+
+1526672085 source:c:\users\georgetomes\projects\games\rogue3\rogue3\attacker.cpp
+	"stdafx.h"
+	"Attacker.h"
+	"Actor.h"
+	"Engine.h"
+
+1526683850 source:c:\users\georgetomes\projects\games\rogue3\rogue3\confusedmonsterai.cpp
+	"stdafx.h"
+	"ConfusedMonsterAI.h"
+	"Engine.h"
+
+1526678107 source:c:\users\georgetomes\projects\games\rogue3\rogue3\confuser.cpp
+	"stdafx.h"
+	"Confuser.h"
+	"Engine.h"
+	"ConfusedMonsterAI.h"
+
+1526675354 c:\users\georgetomes\projects\games\rogue3\rogue3\confuser.h
+	"Pickable.h"
+
+1526674013 source:c:\users\georgetomes\projects\games\rogue3\rogue3\container.cpp
+	"stdafx.h"
+	"Container.h"
+	"Actor.h"
+
+1526678145 source:c:\users\georgetomes\projects\games\rogue3\rogue3\destructible.cpp
+	"stdafx.h"
+	"Destructible.h"
+	"Actor.h"
+	"Engine.h"
+	"RayParticle.h"
+	"MonsterDestructible.h"
+	"PlayerDestructible.h"
+
+1526590833 c:\users\georgetomes\projects\games\rogue3\rogue3\rayparticle.h
+	"Particle.h"
+
+1526674063 c:\users\georgetomes\projects\games\rogue3\rogue3\monsterdestructible.h
+	"Destructible.h"
+
+1526674061 c:\users\georgetomes\projects\games\rogue3\rogue3\playerdestructible.h
+	"Destructible.h"
+
+1526683377 source:c:\users\georgetomes\projects\games\rogue3\rogue3\engine.cpp
+	"stdafx.h"
+	"Engine.h"
+	"PlayerDestructible.h"
+	"PlayerAI.h"
+	"Attacker.h"
+
+1526675474 source:c:\users\georgetomes\projects\games\rogue3\rogue3\fireball.cpp
+	"stdafx.h"
+	"Fireball.h"
+	"Engine.h"
+	"RayParticle.h"
+	<math.h>
+
+1526675876 c:\users\georgetomes\projects\games\rogue3\rogue3\fireball.h
+	"LightningBolt.h"
+
+1526675354 c:\users\georgetomes\projects\games\rogue3\rogue3\lightningbolt.h
+	"Pickable.h"
+
+1526675489 source:c:\users\georgetomes\projects\games\rogue3\rogue3\healer.cpp
+	"stdafx.h"
+	"Healer.h"
+	"Actor.h"
+	"Engine.h"
+
+1526675354 c:\users\georgetomes\projects\games\rogue3\rogue3\healer.h
+	"Pickable.h"
+
+1526675462 source:c:\users\georgetomes\projects\games\rogue3\rogue3\lightningbolt.cpp
+	"stdafx.h"
+	"LightningBolt.h"
+	"Engine.h"
+	"RayParticle.h"
+	<math.h>
+
+1526683265 source:c:\users\georgetomes\projects\games\rogue3\rogue3\map.cpp
+	"stdafx.h"
+	"Map.h"
+	"ColorUtil.h"
+	"Actor.h"
+	"Engine.h"
+	"MonsterDestructible.h"
+	"MonsterAI.h"
+	"Healer.h"
+	"LightningBolt.h"
+	"Fireball.h"
+	"Confuser.h"
+
+1526412130 c:\users\georgetomes\projects\games\rogue3\rogue3\colorutil.h
+	"libtcod.hpp"
+
+1526675660 source:c:\users\georgetomes\projects\games\rogue3\rogue3\monsterai.cpp
+	"stdafx.h"
+	"MonsterAI.h"
+	"Actor.h"
+	"Engine.h"
+	<math.h>
+
+1526673877 source:c:\users\georgetomes\projects\games\rogue3\rogue3\monsterdestructible.cpp
+	"stdafx.h"
+	"MonsterDestructible.h"
+	"Actor.h"
+	"Engine.h"
+
+1526653370 source:c:\users\georgetomes\projects\games\rogue3\rogue3\particle.cpp
+	"stdafx.h"
+	"Particle.h"
+
+1526595492 source:c:\users\georgetomes\projects\games\rogue3\rogue3\particlesystem.cpp
+	"stdafx.h"
+	"ParticleSystem.h"
+	"RayParticle.h"
+
+1526668049 source:c:\users\georgetomes\projects\games\rogue3\rogue3\persistent.cpp
+	"stdafx.h"
+	"Persistent.h"
+
+1526677824 source:c:\users\georgetomes\projects\games\rogue3\rogue3\pickable.cpp
+	"stdafx.h"
+	"Pickable.h"
+	"Actor.h"
+	"Engine.h"
+	"Healer.h"
+	"LightningBolt.h"
+	"Confuser.h"
+	"Fireball.h"
+
+1526679566 source:c:\users\georgetomes\projects\games\rogue3\rogue3\playerai.cpp
+	"stdafx.h"
+	"PlayerAI.h"
+	"Actor.h"
+	"Engine.h"
+
+1526673922 source:c:\users\georgetomes\projects\games\rogue3\rogue3\playerdestructible.cpp
+	"stdafx.h"
+	"PlayerDestructible.h"
+	"Engine.h"
+
+1526653404 source:c:\users\georgetomes\projects\games\rogue3\rogue3\rayparticle.cpp
+	"stdafx.h"
+	"RayParticle.h"
+	<math.h>
+
+1526667799 source:c:\users\georgetomes\projects\games\rogue3\rogue3\rogue3.cpp
+	"stdafx.h"
+	"Engine.h"
+
+1505163064 source:c:\users\georgetomes\projects\games\rogue3\rogue3\stdafx.cpp
+	"stdafx.h"
+
+1526669908 source:c:\users\georgetomes\projects\games\rogue3\rogue3\tile.cpp
+	"stdafx.h"
+	"Tile.h"
+
+1526682649 source:c:\users\georgetomes\projects\games\rogue3\rogue3\uimanager.cpp
+	"stdafx.h"
+	"UIManager.h"
+	"Engine.h"
+	<stdarg.h>
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\libtcod.hpp
+	"libtcod.h"
+	"bresenham.hpp"
+	"bsp.hpp"
+	"color.hpp"
+	"console.hpp"
+	"fov.hpp"
+	"heightmap.hpp"
+	"image.hpp"
+	"lex.hpp"
+	"list.hpp"
+	"mersenne.hpp"
+	"mouse.hpp"
+	"namegen.hpp"
+	"noise.hpp"
+	"parser.hpp"
+	"path.hpp"
+	"sys.hpp"
+	"tree.hpp"
+	"txtfield.hpp"
+	"zip.hpp"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\libtcod.h
+	"libtcod_portability.h"
+	"libtcod_utility.h"
+	"libtcod_version.h"
+	"bresenham.h"
+	"bsp.h"
+	"color.h"
+	"console.h"
+	"console_rexpaint.h"
+	"fov.h"
+	"heightmap.h"
+	"image.h"
+	"lex.h"
+	"list.h"
+	"mersenne.h"
+	"mouse.h"
+	"namegen.h"
+	"noise.h"
+	"path.h"
+	"parser.h"
+	"sys.h"
+	"tree.h"
+	"txtfield.h"
+	"zip.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\libtcod_portability.h
+	<wchar.h>
+	"external/pstdint.h"
+	<stdbool.h>
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\external\pstdint.h
+	<stddef.h>
+	<limits.h>
+	<signal.h>
+	<stdint.h>
+	<sys/inttypes.h>
+	<wchar.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\libtcod_utility.h
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\libtcod_version.h
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\bresenham.h
+	"libtcod_portability.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\bsp.h
+	"libtcod_portability.h"
+	"mersenne_types.h"
+	"tree.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\mersenne_types.h
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\tree.h
+	"libtcod_portability.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\color.h
+	"libtcod_portability.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\console.h
+	"libtcod_portability.h"
+	"color.h"
+	"console_types.h"
+	"image.h"
+	"list.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\console_types.h
+	"libtcod_portability.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\image.h
+	"color.h"
+	"console_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\list.h
+	"libtcod_portability.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\console_rexpaint.h
+	"libtcod_portability.h"
+	"console.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\fov.h
+	"libtcod_portability.h"
+	"fov_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\fov_types.h
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\heightmap.h
+	"libtcod_portability.h"
+	"mersenne_types.h"
+	"noise.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\noise.h
+	"libtcod_portability.h"
+	"mersenne_types.h"
+	"noise_defaults.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\noise_defaults.h
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\lex.h
+	"libtcod_portability.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\mersenne.h
+	"libtcod_portability.h"
+	"mersenne_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\mouse.h
+	"libtcod_portability.h"
+	"mouse_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\mouse_types.h
+	"libtcod_portability.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\namegen.h
+	"libtcod_portability.h"
+	"list.h"
+	"mersenne.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\path.h
+	"libtcod_portability.h"
+	"fov_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\parser.h
+	"libtcod_portability.h"
+	"color.h"
+	"list.h"
+	"lex.h"
+	"mersenne.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\sys.h
+	"libtcod_portability.h"
+	"list.h"
+	"image.h"
+	"mouse_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\txtfield.h
+	"libtcod_portability.h"
+	"color.h"
+	"console_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\zip.h
+	"libtcod_portability.h"
+	"color.h"
+	"console_types.h"
+	"image.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\bresenham.hpp
+	"bresenham.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\bsp.hpp
+	"bsp.h"
+	"list.hpp"
+	"mersenne.hpp"
+	"tree.hpp"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\list.hpp
+	"list.h"
+	<string.h>
+	<stdlib.h>
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\mersenne.hpp
+	"mersenne.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\tree.hpp
+	"tree.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\color.hpp
+	"color.h"
+	"libtcod_utility.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\console.hpp
+	"console.h"
+	"console_rexpaint.h"
+	"image.hpp"
+	"color.hpp"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\image.hpp
+	"color.hpp"
+	"console.hpp"
+	"image.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\fov.hpp
+	"fov.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\heightmap.hpp
+	"heightmap.h"
+	"noise.hpp"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\noise.hpp
+	"mersenne.hpp"
+	"noise.h"
+	"noise_defaults.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\lex.hpp
+	"lex.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\mouse.hpp
+	"mouse.h"
+	"mouse_types.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\namegen.hpp
+	"list.hpp"
+	"mersenne.hpp"
+	"namegen.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\parser.hpp
+	"color.hpp"
+	"list.hpp"
+	"parser.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\path.hpp
+	"fov.hpp"
+	"path.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\sys.hpp
+	"image.hpp"
+	"mouse.hpp"
+	"sys.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\txtfield.hpp
+	"color.hpp"
+	"console.hpp"
+	"txtfield.h"
+
+1523069716 c:\users\georgetomes\projects\games\rogue3\libtcod-1.6.6-x86_64-mingw\include\zip.hpp
+	"color.hpp"
+	"console.hpp"
+	"image.hpp"
+	"zip.h"
+

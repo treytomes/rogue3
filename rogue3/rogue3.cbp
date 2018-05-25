@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="rogue3" />
+		<Option pch_mode="2" />
+		<Option compiler="mingw_compiler" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="../Debug/rogue3" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug/" />
+				<Option deps_output="../Debug/" />
+				<Option type="0" />
+				<Option compiler="mingw_compiler" />
+				<Compiler>
+					<Add directory="$(IncludePath)/" />
+				</Compiler>
+			</Target>
+			<Target title="Debug x64">
+				<Option output="../Debug/rogue3" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug/" />
+				<Option deps_output="../Debug/" />
+				<Option type="0" />
+				<Option compiler="mingw_compiler" />
+				<Compiler>
+					<Add directory="$(IncludePath)/" />
+				</Compiler>
+			</Target>
+			<Target title="Release x64">
+				<Option output="../Release/rogue3" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release/" />
+				<Option deps_output="../Release/" />
+				<Option type="0" />
+				<Option compiler="mingw_compiler" />
+				<Compiler>
+					<Add directory="$(IncludePath)/" />
+				</Compiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="../Release/rogue3" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release/" />
+				<Option deps_output="../Release/" />
+				<Option type="0" />
+				<Option compiler="mingw_compiler" />
+				<Compiler>
+					<Add directory="$(IncludePath)/" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="." />
+			<Add directory="../libtcod-1.6.6-x86_64-mingw/include" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="." />
+		</ResourceCompiler>
+		<Linker>
+			<Add library="../../../rogue3/libtcod-1.6.6-x86_64-mingw/libtcod-gui.a" />
+			<Add library="../../../rogue3/libtcod-1.6.6-x86_64-mingw/libtcod.a" />
+		</Linker>
+		<Unit filename="AI.cpp" />
+		<Unit filename="AI.h" />
+		<Unit filename="Actor.cpp" />
+		<Unit filename="Actor.h" />
+		<Unit filename="Attacker.cpp" />
+		<Unit filename="Attacker.h" />
+		<Unit filename="ColorUtil.h" />
+		<Unit filename="ConfusedMonsterAI.cpp" />
+		<Unit filename="ConfusedMonsterAI.h" />
+		<Unit filename="Confuser.cpp" />
+		<Unit filename="Confuser.h" />
+		<Unit filename="Constants.h" />
+		<Unit filename="Container.cpp" />
+		<Unit filename="Container.h" />
+		<Unit filename="Destructible.cpp" />
+		<Unit filename="Destructible.h" />
+		<Unit filename="Engine.cpp" />
+		<Unit filename="Engine.h" />
+		<Unit filename="Fireball.cpp" />
+		<Unit filename="Fireball.h" />
+		<Unit filename="Healer.cpp" />
+		<Unit filename="Healer.h" />
+		<Unit filename="LightningBolt.cpp" />
+		<Unit filename="LightningBolt.h" />
+		<Unit filename="Map.cpp" />
+		<Unit filename="Map.h" />
+		<Unit filename="MonsterAI.cpp" />
+		<Unit filename="MonsterAI.h" />
+		<Unit filename="MonsterDestructible.cpp" />
+		<Unit filename="MonsterDestructible.h" />
+		<Unit filename="Particle.cpp" />
+		<Unit filename="Particle.h" />
+		<Unit filename="ParticleSystem.cpp" />
+		<Unit filename="ParticleSystem.h" />
+		<Unit filename="Persistent.cpp" />
+		<Unit filename="Persistent.h" />
+		<Unit filename="Pickable.cpp" />
+		<Unit filename="Pickable.h" />
+		<Unit filename="PlayerAI.cpp" />
+		<Unit filename="PlayerAI.h" />
+		<Unit filename="PlayerDestructible.cpp" />
+		<Unit filename="PlayerDestructible.h" />
+		<Unit filename="RayParticle.cpp" />
+		<Unit filename="RayParticle.h" />
+		<Unit filename="Tile.cpp" />
+		<Unit filename="Tile.h" />
+		<Unit filename="UIManager.cpp" />
+		<Unit filename="UIManager.h" />
+		<Unit filename="rogue3.cpp" />
+		<Unit filename="stdafx.cpp" />
+		<Unit filename="stdafx.h" />
+		<Unit filename="targetver.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

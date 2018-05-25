@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+Debug
+v14
+/.vs/rogue3/v15
+*.ipch
