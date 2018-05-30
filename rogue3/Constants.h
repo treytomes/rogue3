@@ -6,7 +6,7 @@
 #define IS_FULLSCREEN false
 
 // Enable the debug code to draw scents on the map.
-#define RENDER_SCENTS
+//#define RENDER_SCENTS
 
 #define MAP_WIDTH	64
 #define MAP_HEIGHT	64

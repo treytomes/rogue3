@@ -66,7 +66,7 @@ int MonsterAI::update(Actor *owner)
 	// 2. Else, if the monster can see the player, then move towards the player.
 	// 3. Else, if the monster can smell the player, then move towards the smell.
 	// 4. Else, move towards the last known player position.
-	// 5. What if the monster doesn't have a path?
+	// 5. What if the monster doesn't have a path?  Maybe find some friends to hang out with?  Or explore the dungeon?
 
 	if (canSeePlayer(owner)) // monster can see the player
 	{

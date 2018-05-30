@@ -180,8 +180,8 @@ static const TCODColor multipleItemsBackground = TCODColor::darkerBlue;
 
 void Map::render(int centerX, int centerY, int renderTop, int renderLeft, int renderWidth, int renderHeight) const
 {
-	static const TCODColor colorForegroundWall = TCODColor::lightGrey;
-	static const TCODColor colorForegroundGround = TCODColor::darkGrey;
+	//static const TCODColor colorForegroundWall = TCODColor::lightGrey;
+	//static const TCODColor colorForegroundGround = TCODColor::darkGrey;
 
 	for (int renderX = renderLeft, mapX = centerX - renderWidth / 2; (renderX < renderLeft + renderWidth - 1) && (mapX < width); renderX++, mapX++)
 	{
@@ -300,8 +300,7 @@ void Map::dig(int x1, int y1, int x2, int y2)
 
 			strcpy(tiles[tilesOffset].name, "floor");
 			tiles[tilesOffset].tileIndex = '.';
-			tiles[tilesOffset].foregroundColor = TCODColor::darkGrey;
-			tiles[tilesOffset].backgroundColor = TCODColor::darkGrey * 0.5f;
+			tiles[tilesOffset].setColor(TCODColor::darkGrey);
 		}
 	}
 }
