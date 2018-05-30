@@ -4,9 +4,14 @@
 class PlayerAI : public AI
 {
 public:
+	int xpLevel;
+
+	PlayerAI();
 	void load(TCODZip &zip);
 	void save(TCODZip &zip);
 	int update(Actor *owner);
+
+	int getNextLevelXP() const;
 
 private:
 	int moveOrAttack(Actor *owner, int targetX, int targetY);

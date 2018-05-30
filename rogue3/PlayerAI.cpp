@@ -3,23 +3,70 @@
 
 #include "Actor.h"
 #include "Engine.h"
+#include "Scent.h"
+
+const int LEVEL_UP_BASE = 200;
+const int LEVEL_UP_FACTOR = 150;
+const int PLAYER_STINK = MAX_STINK;
+
+PlayerAI::PlayerAI()
+	: xpLevel(1)
+{
+}
 
 void PlayerAI::load(TCODZip &zip)
 {
+	xpLevel = zip.getInt();
 }
 
 void PlayerAI::save(TCODZip &zip)
 {
 	zip.putInt(PLAYER);
+	zip.putInt(xpLevel);
 }
+
+enum LevelUpMenuCode {
+	CONSTITUTION,
+	STRENGTH,
+	AGILITY
+};
 
 int PlayerAI::update(Actor *owner)
 {
+	int levelUpXP = getNextLevelXP();
+	if (owner->destructible->xp >= levelUpXP)
+	{
+		xpLevel++;
+		owner->destructible->xp -= levelUpXP;
+		engine.ui->message(TCODColor::yellow, "Your battle skills grow stronger!  You reached level %d.", xpLevel);
+
+		engine.ui->menu.clear();
+		engine.ui->menu.addItem(LevelUpMenuCode::CONSTITUTION, "Constitution (+20 HP)");
+		engine.ui->menu.addItem(LevelUpMenuCode::STRENGTH, "Strength (+1 attack)");
+		engine.ui->menu.addItem(LevelUpMenuCode::AGILITY, "Agility (+1 defense)");
+		LevelUpMenuCode selectedItem = (LevelUpMenuCode)engine.ui->menu.pick(Menu::PAUSE	);
+
+		switch (selectedItem)
+		{
+		case CONSTITUTION:
+			owner->destructible->maxHealth += 20;
+			owner->destructible->health += 20;
+			break;
+		case STRENGTH:
+			owner->attacker->power++;
+			break;
+		case AGILITY:
+			owner->destructible->defense++;
+			break;
+		}
+	}
+
 	if (owner->destructible && owner->destructible->isDead())
 	{
 		return 0;
 	}
 
+	int cost = 0;
 	int playerX = owner->x;
 	int playerY = owner->y;
 
@@ -47,7 +94,8 @@ int PlayerAI::update(Actor *owner)
 
 	case TCODK_KP5:
 		engine.ui->message(TCODColor::lightGrey, "Waiting...\n");
-		return COST_WAIT;
+		cost += COST_WAIT;
+		break;
 
 	case TCODK_KP6:
 	case TCODK_RIGHT:
@@ -74,7 +122,8 @@ int PlayerAI::update(Actor *owner)
 		break;
 
 	case TCODK_CHAR:
-		return handleActionKey(owner, engine.lastKey.c);
+		cost += handleActionKey(owner, engine.lastKey.c);
+		break;
 
 	default:
 		break;
@@ -82,16 +131,19 @@ int PlayerAI::update(Actor *owner)
 
 	if ((owner->x != playerX) || (owner->y != playerY))
 	{
-		int cost = moveOrAttack(owner, playerX, playerY);
-		if (cost != 0)
-		{
-			// Player might have moved.
-			engine.getCurrentStage()->map->computeFov();
-		}
-		return cost;
+		cost += moveOrAttack(owner, playerX, playerY);
 	}
 
-	return 0;
+	if (cost != 0)
+	{
+		// Player might have moved.
+		engine.getCurrentStage()->map->computeFov();
+
+		// Add some player scent to the current tiles.
+		engine.getCurrentStage()->scents.push(new Scent(0, owner->x, owner->y, PLAYER_STINK));
+	}
+
+	return cost;
 }
 
 int PlayerAI::handleActionKey(Actor *owner, int ascii)
@@ -121,26 +173,6 @@ int PlayerAI::handleActionKey(Actor *owner, int ascii)
 			cost = COST_GET_ITEM;
 		}
 		break;
-	//case '>':
-	//	if ((engine.currentStage->stairsDown->x == owner->x) && (engine.currentStage->stairsDown->y == owner->y))
-	//	{
-	//		engine.ui->message(TCODColor::lightGrey, "Trying to go down...");
-	//	}
-	//	else
-	//	{
-	//		engine.ui->message(TCODColor::lightGrey, "There are no down stairs here.");
-	//	}
-	//	break;
-	//case '<':
-	//	if ((engine.currentStage->stairsUp->x == owner->x) && (engine.currentStage->stairsUp->y == owner->y))
-	//	{
-	//		engine.ui->message(TCODColor::lightGrey, "Trying to go up...");
-	//	}
-	//	else
-	//	{
-	//		engine.ui->message(TCODColor::lightGrey, "There are no up stairs here.");
-	//	}
-	//	break;
 	}
 
 	Stage *currentStage = engine.getCurrentStage();
@@ -263,4 +295,9 @@ int PlayerAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 	owner->x = targetX;
 	owner->y = targetY;
 	return COST_MOVE;
+}
+
+int PlayerAI::getNextLevelXP() const
+{
+	return LEVEL_UP_BASE + xpLevel * LEVEL_UP_FACTOR;
 }

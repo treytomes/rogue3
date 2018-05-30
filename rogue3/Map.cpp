@@ -18,7 +18,7 @@ class BspListener : public ITCODBspCallback
 {
 private:
 	// A map to dig.
-	Map &map;
+	Map & map;
 
 	// Room number.
 	int roomNum;
@@ -354,7 +354,7 @@ void Map::addMonster(int x, int y)
 		actor = new Actor(x, y, 'o', "orc", TCODColor::desaturatedGreen);
 		actor->speed = 4;
 		actor->attacker = new Attacker(3);
-		actor->destructible = new MonsterDestructible(10, 0, "dead orc");
+		actor->destructible = new MonsterDestructible(10, 0, "dead orc", 35);
 	}
 	else
 	{
@@ -362,7 +362,7 @@ void Map::addMonster(int x, int y)
 		actor = new Actor(x, y, 'T', "troll", TCODColor::darkerGreen);
 		actor->speed = 2;
 		actor->attacker = new Attacker(8);
-		actor->destructible = new MonsterDestructible(16, 1, "troll carcass");
+		actor->destructible = new MonsterDestructible(16, 1, "troll carcass", 100);
 	}
 	actor->ai = new MonsterAI();
 	//LuaAI *ai = new LuaAI();
@@ -427,4 +427,15 @@ Tile *Map::getTile(int x, int y) const
 		return NULL;
 	}
 	return &tiles[x + y * width];
+}
+
+
+TCODPath *Map::calculatePath(int startX, int startY, int endX, int endY, TCODPath *path)
+{
+	if (!path)
+	{
+		path = new TCODPath(map);
+	}
+	path->compute(startX, startY, endX, endY);
+	return path;
 }

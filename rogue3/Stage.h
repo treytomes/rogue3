@@ -1,6 +1,7 @@
 #pragma once
 
 class Actor;
+class Scent;
 class Map;
 
 // A stage consists of both the map, and the actors playing on the map.
@@ -19,6 +20,7 @@ public:
 	void update();
 
 	TCODList<Actor *> actors;
+	TCODList<Scent *> scents;
 	//Actor *stairsUp;
 	//Actor *stairsDown;
 	Map *map;

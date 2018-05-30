@@ -31,15 +31,15 @@ bool Attacker::can_attack(Actor *owner, int targetX, int targetY)
 	return false;
 }
 
-void Attacker::attack(Actor *owner, int targetX, int targetY)
+bool Attacker::attack(Actor *owner, int targetX, int targetY)
 {
 	Actor *target = engine.getDestructibleActor(targetX, targetY);
 	if (target == NULL)
 	{
-		engine.ui->message(TCODColor::lightGrey, "%s tries to attack, but couldn't find anything to hit.");
+		engine.ui->message(TCODColor::lightGrey, "%s tries to attack, but couldn't find anything to hit.", owner->name);
+		return false;
 	}
-
-	if (target->destructible && !target->destructible->isDead())
+	else if (target->destructible && !target->destructible->isDead())
 	{
 		if (power - target->destructible->defense > 0)
 		{
@@ -50,9 +50,11 @@ void Attacker::attack(Actor *owner, int targetX, int targetY)
 			engine.ui->message(TCODColor::lightGrey, "%s attacks %s, but it has no effect!", owner->name, target->name);
 		}
 		target->destructible->takeDamage(target, power);
+		return true;
 	}
 	else
 	{
 		engine.ui->message(TCODColor::lightGrey, "%s attacks %s in vain.", owner->name, target->name);
+		return true;
 	}
 }

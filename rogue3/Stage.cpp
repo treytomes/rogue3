@@ -4,11 +4,13 @@
 #include "Map.h"
 #include "Engine.h"
 #include "StairsAI.h"
+#include "Scent.h"
 
 Stage::Stage()
 {
 	map = NULL;
 	actors.clear();
+	scents.clear();
 }
 
 Stage::~Stage()
@@ -23,6 +25,11 @@ void Stage::initialize(int sourceX, int sourceY)
 		actors.clearAndDelete();
 	}
 
+	if (scents.size() > 0)
+	{
+		scents.clearAndDelete();
+	}
+
 	map = new Map(MAP_WIDTH, MAP_HEIGHT);
 	map->initialize(sourceX, sourceY);
 }
@@ -35,7 +42,7 @@ void Stage::load(TCODZip &zip)
 	map = new Map(width, height);
 	map->load(zip);
 
-	// Then all other actors.
+	// Then all actors.
 	int numActors = zip.getInt();
 	while (numActors > 0)
 	{
@@ -50,6 +57,16 @@ void Stage::load(TCODZip &zip)
 			actors.push(actor);
 		}
 		numActors--;
+	}
+
+	// Then all scents.
+	int numScents = zip.getInt();
+	while (numScents > 0)
+	{
+		Scent *scent = new Scent(0, 0, 0, 0.0f);
+		scent->load(zip);
+		scents.push(scent);
+		numScents--;
 	}
 }
 
@@ -66,11 +83,19 @@ void Stage::save(TCODZip &zip)
 	{
 		(*iter)->save(zip);
 	}
+
+	// Then all the scents.
+	zip.putInt(scents.size());
+	for (Scent **iter = scents.begin(); iter != scents.end(); iter++)
+	{
+		(*iter)->save(zip);
+	}
 }
 
 void Stage::terminate()
 {
 	actors.clearAndDelete();
+	scents.clearAndDelete();
 	if (map)
 	{
 		delete map;
@@ -80,12 +105,31 @@ void Stage::terminate()
 
 void Stage::update()
 {
-	for (Actor **iterator = actors.begin(); iterator != actors.end(); iterator++)
+	for (Actor **iter = actors.begin(); iter != actors.end(); iter++)
 	{
-		Actor *actor = *iterator;
+		Actor *actor = *iter;
 		if (actor != engine.player) // Not really happy with having an engine reference here, but it will work.
 		{
 			actor->update();
 		}
 	}
+
+	TCODList<Scent *> deadScents;
+	for (Scent **iter = scents.begin(); iter != scents.end(); iter++)
+	{
+		Scent *scent = *iter;
+		scent->update();
+		if (!scent->isAlive())
+		{
+			deadScents.push(scent);
+		}
+	}
+
+	for (Scent **iter = deadScents.begin(); iter != deadScents.end(); iter++)
+	{
+		Scent *scent = *iter;
+		scents.remove(scent);
+	}
+
+	deadScents.clearAndDelete();
 }

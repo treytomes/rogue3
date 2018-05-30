@@ -11,6 +11,6 @@ public:
 	void load(TCODZip &zip);
 	void save(TCODZip &zip);
 	bool can_attack(Actor *owner, int targetX, int targetY);
-	void attack(Actor *owner, int targetX, int targetY);
+	bool attack(Actor *owner, int targetX, int targetY);
 };
 

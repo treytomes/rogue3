@@ -7,12 +7,13 @@ class Actor;
 class Destructible : public Persistent
 {
 public:
+	int xp; // XP gained when killing this monster (or, player xp).
 	int maxHealth; // maximum health points
 	int health; // current health points
 	int defense; // hit points deflected
 	char corpseName[MAX_NAME_LENGTH]; // the actor's name once dead/destroyed
 
-	Destructible(int maxHealth, int defense, const char *corpseName);
+	Destructible(int maxHealth, int defense, const char *corpseName, int xp);
 	virtual ~Destructible() {};
 	void load(TCODZip &zip);
 	virtual void save(TCODZip &zip);

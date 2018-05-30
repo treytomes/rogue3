@@ -3,7 +3,7 @@
 #include "Engine.h"
 
 PlayerDestructible::PlayerDestructible(int maxHealth, int defense, const char *corpseName)
-	: Destructible(maxHealth, defense, corpseName)
+	: Destructible(maxHealth, defense, corpseName, 0)
 {
 }
 

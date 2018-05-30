@@ -2,7 +2,12 @@
 #include "UIManager.h"
 
 #include "Engine.h"
+#include "PlayerAI.h"
+
 #include <stdarg.h>
+
+const int PAUSE_MENU_WIDTH = 30;
+const int PAUSE_MENU_HEIGHT = 15;
 
 Menu::~Menu()
 {
@@ -22,13 +27,32 @@ void Menu::addItem(int code, const char *label)
 	items.push(item);
 }
 
-int Menu::pick(int defaultCode) {
-	static TCODImage img("menu_background1.png");
+int Menu::pick(DisplayMode mode, int defaultCode)
+{
 	int selectedItem = 0;
+	int menuX, menuY;
+
+	if (mode == PAUSE)
+	{
+		menuX = (engine.screenWidth - PAUSE_MENU_WIDTH) / 2;
+		menuY = (engine.screenHeight - PAUSE_MENU_HEIGHT) / 2;
+
+		TCODConsole::root->setDefaultForeground(TCODColor(200, 180, 50));
+		TCODConsole::root->printFrame(menuX, menuY, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, true, TCOD_BKGND_ALPHA(70), "menu");
+
+		menuX += 2;
+		menuY += 3;
+	}
+	else
+	{
+		static TCODImage img("menu_background1.png");
+		img.blit2x(TCODConsole::root, 0, 0);
+		menuX = 10;
+		menuY = TCODConsole::root->getHeight() / 3;
+	}
+
 	while (!TCODConsole::isWindowClosed())
 	{
-		img.blit2x(TCODConsole::root, 0, 0);
-
 		int currentItem = 0;
 		for (MenuItem **iter = items.begin(); iter != items.end(); iter++)
 		{
@@ -40,7 +64,7 @@ int Menu::pick(int defaultCode) {
 			{
 				TCODConsole::root->setDefaultForeground(TCODColor::lightGrey);
 			}
-			TCODConsole::root->print(10, 10 + currentItem * 3, (*iter)->label);
+			TCODConsole::root->print(menuX, menuY + currentItem * 3, (*iter)->label);
 			currentItem++;
 		}
 
@@ -64,7 +88,11 @@ int Menu::pick(int defaultCode) {
 		case TCODK_ENTER:
 			return items.get(selectedItem)->code;
 		case TCODK_ESCAPE:
-			return defaultCode;
+			if (defaultCode >= 0)
+			{
+				return defaultCode;
+			}
+			break;
 		default:
 			break;
 		}
@@ -125,6 +153,15 @@ void UIManager::render()
 
 	// Draw the health bar.
 	renderBar(hudPanel, 1, 1, BAR_WIDTH, "HP", engine.player->destructible->health, engine.player->destructible->maxHealth, TCODColor::lightRed, TCODColor::darkerRed);
+
+	// Draw the XP bar.
+	PlayerAI *ai = (PlayerAI *)engine.player->ai;
+	if (ai)
+	{
+		char xpText[128];
+		sprintf(xpText, "XP(%d)", ai->xpLevel);
+		renderBar(hudPanel, 1, 5, BAR_WIDTH, xpText, engine.player->destructible->xp, ai->getNextLevelXP(), TCODColor::lightViolet, TCODColor::darkerViolet);
+	}
 
 	// Draw the number of turns.
 	hudPanel->print(0, HUDPANEL_HEIGHT - 1, "# turns: %d", engine.gameTimeInTurns);

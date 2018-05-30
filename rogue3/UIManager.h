@@ -10,10 +10,16 @@
 class Menu
 {
 public:
+	enum DisplayMode
+	{
+		MAIN,
+		PAUSE
+	};
+
 	~Menu();
 	void clear();
 	void addItem(int code, const char *label);
-	int pick(int defaultCode = -1); // defaultCode will be returned if Escape is pressed.
+	int pick(DisplayMode mode, int defaultCode = -1); // defaultCode will be returned if Escape is pressed.
 protected:
 	struct MenuItem
 	{

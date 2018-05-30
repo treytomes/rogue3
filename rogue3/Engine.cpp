@@ -4,6 +4,7 @@
 #include "PlayerAI.h"
 #include "Attacker.h"
 #include "LuaAI.h"
+#include "Scent.h"
 
 bool query_destructible(Actor *actor)
 {
@@ -69,7 +70,7 @@ void Engine::terminate()
 enum MainMenuCode {
 	NEW_GAME,
 	CONTINUE,
-	EXIT = -1
+	EXIT
 };
 
 void Engine::load()
@@ -81,7 +82,7 @@ void Engine::load()
 		ui->menu.addItem(MainMenuCode::CONTINUE, "Continue");
 	}
 	ui->menu.addItem(MainMenuCode::EXIT, "Exit");
-	MainMenuCode menuItem = (MainMenuCode)ui->menu.pick(EXIT);
+	MainMenuCode menuItem = (MainMenuCode)ui->menu.pick(Menu::MAIN, EXIT);
 
 	if (menuItem == MainMenuCode::EXIT)
 	{
@@ -228,17 +229,26 @@ void Engine::render()
 	// Draw the map.
 	currentStage->map->render(player->x, player->y, mapX, mapY, mapWidth, mapHeight); // screenWidth, screenHeight - PANEL_HEIGHT);
 
-	// Draw the actors.
+																					  // Draw the actors.
 	int offsetX = mapX + mapWidth / 2 - player->x;
 	int offsetY = mapY + mapHeight / 2 - player->y;
-	for (Actor **iterator = currentStage->actors.begin(); iterator != currentStage->actors.end(); iterator++)
+	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
-		Actor *actor = *iterator;
+		Actor *actor = *iter;
 		if ((!actor->fovOnly && currentStage->map->isExplored(actor->x, actor->y)) || currentStage->map->isInFov(actor->x, actor->y))
 		{
 			actor->render(offsetX, offsetY);
 		}
 	}
+
+#ifdef RENDER_SCENTS
+	// Draw the scents.
+	for (Scent **iter = currentStage->scents.begin(); iter != currentStage->scents.end(); iter++)
+	{
+		Scent *scent = *iter;
+		scent->render(offsetX, offsetY);
+	}
+#endif
 
 	particles->render(TCODConsole::root, offsetX, offsetY);
 

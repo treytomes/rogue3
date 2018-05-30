@@ -33,6 +33,9 @@ public:
 	void addNPC(int x, int y);
 	void addItem(int x, int y);
 
+	// Calculate a path.  Will create a path for you if you don't already have one to pass in.
+	TCODPath *calculatePath(int startX, int startY, int endX, int endY, TCODPath *path = NULL);
+
 protected:
 	Tile *tiles;
 	TCODMap *map;

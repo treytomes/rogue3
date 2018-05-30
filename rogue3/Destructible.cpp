@@ -7,8 +7,8 @@
 #include "MonsterDestructible.h"
 #include "PlayerDestructible.h"
 
-Destructible::Destructible(int maxHealth, int defense, const char *corpseName)
-	: maxHealth(maxHealth), health(maxHealth), defense(defense)
+Destructible::Destructible(int maxHealth, int defense, const char *corpseName, int xp)
+	: maxHealth(maxHealth), health(maxHealth), defense(defense), xp(xp)
 {
 	if (corpseName != NULL)
 	{
@@ -30,6 +30,7 @@ void Destructible::load(TCODZip &zip)
 	health = zip.getFloat();
 	defense = zip.getFloat();
 	strcpy(corpseName, zip.getString());
+	xp = zip.getInt();
 }
 
 void Destructible::save(TCODZip &zip)
@@ -38,6 +39,7 @@ void Destructible::save(TCODZip &zip)
 	zip.putFloat(health);
 	zip.putFloat(defense);
 	zip.putString(corpseName);
+	zip.putInt(xp);
 }
 
 Destructible *Destructible::create(TCODZip &zip) {
@@ -45,7 +47,7 @@ Destructible *Destructible::create(TCODZip &zip) {
 	Destructible *destructible = NULL;
 	switch (type) {
 	case MONSTER:
-		destructible = new MonsterDestructible(0, 0, NULL);
+		destructible = new MonsterDestructible(0, 0, NULL, 0);
 		break;
 	case PLAYER:
 		destructible = new PlayerDestructible(0, 0, NULL);

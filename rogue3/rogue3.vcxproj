@@ -173,6 +173,7 @@
     <ClInclude Include="PlayerAI.h" />
     <ClInclude Include="PlayerDestructible.h" />
     <ClInclude Include="RayParticle.h" />
+    <ClInclude Include="Scent.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StairsAI.h" />
     <ClInclude Include="stdafx.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="PlayerDestructible.cpp" />
     <ClCompile Include="RayParticle.cpp" />
     <ClCompile Include="rogue3.cpp" />
+    <ClCompile Include="Scent.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StairsAI.cpp" />
     <ClCompile Include="stdafx.cpp">
