@@ -386,9 +386,9 @@ int PlayerAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 		return COST_MOVE_FAIL;
 	}
 
-	for (Actor **iterator = currentStage->actors.begin(); iterator != currentStage->actors.end(); iterator++)
+	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
-		Actor *actor = *iterator;
+		Actor *actor = *iter;
 		if ((actor->getX() == targetX) && (actor->getY() == targetY))
 		{
 			if (actor->destructible && !actor->destructible->isDead())
@@ -401,15 +401,10 @@ int PlayerAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 				// TODO: actor->interacts?
 				return COST_MOVE_FAIL;
 			}
-		}
-	}
-
-	for (Actor **iterator = currentStage->actors.begin(); iterator != currentStage->actors.end(); iterator++)
-	{
-		Actor *actor = *iterator;
-		if (((actor->destructible && actor->destructible->isDead()) || actor->pickable) && (actor->getX() == targetX) && (actor->getY() == targetY))
-		{
-			engine.ui->message(TCODColor::lightGrey, "There's a %s here.\n", actor->name);
+			else if ((actor->destructible && actor->destructible->isDead()) || actor->pickable)
+			{
+				engine.ui->message(TCODColor::lightGrey, "There's a %s here.\n", actor->name);
+			}
 		}
 	}
 
