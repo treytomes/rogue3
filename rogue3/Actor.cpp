@@ -6,7 +6,7 @@
 
 Actor::Actor(int x, int y, int tileIndex, const char *name, const TCODColor &foregroundColor, const TCODColor &backgroundColor)
 	: x(x), y(y), tileIndex(tileIndex), foregroundColor(foregroundColor), energy(0), speed(1), attacker(NULL), destructible(NULL), ai(NULL), container(NULL), pickable(NULL),
-	blocks(true), fovOnly(true)
+	blocksMovement(true), blocksVision(false), fovOnly(true)
 {
 	if (name != NULL)
 	{
@@ -61,7 +61,8 @@ void Actor::load(TCODZip &zip)
 	strcpy(name, zip.getString());
 	foregroundColor = zip.getColor();
 	backgroundColor = zip.getColor();
-	blocks = zip.getInt();
+	blocksMovement = zip.getInt();
+	blocksVision = zip.getInt();
 	fovOnly = zip.getInt();
 
 	bool hasAttacker = zip.getInt();
@@ -104,7 +105,8 @@ void Actor::save(TCODZip &zip)
 	zip.putString(name);
 	zip.putColor(&foregroundColor);
 	zip.putColor(&backgroundColor);
-	zip.putInt(blocks);
+	zip.putInt(blocksMovement);
+	zip.putInt(blocksVision);
 	zip.putInt(fovOnly);
 
 	zip.putInt(attacker != NULL);
@@ -179,4 +181,23 @@ float Actor::getDistance(int cx, int cy) const
 	int dx = x - cx;
 	int dy = y - cy;
 	return sqrtf((dx * dx) + (dy * dy));
+}
+
+void Actor::moveTo(int targetX, int targetY)
+{
+	if ((x != targetX) || (y != targetY))
+	{
+		if (blocksVision)
+		{
+			engine.getCurrentStage()->map->setBlocksVision(x, y, false);
+		}
+
+		x = targetX;
+		y = targetY;
+
+		if (blocksVision)
+		{
+			engine.getCurrentStage()->map->setBlocksVision(x, y, true);
+		}
+	}
 }

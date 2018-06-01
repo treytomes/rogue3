@@ -25,6 +25,10 @@ public:
 	bool isWall(int x, int y) const;
 	bool isInFov(int x, int y) const;
 	bool isExplored(int x, int y) const;
+
+	// Useful for doors, or large monsters.
+	void setBlocksVision(int x, int y, int value);
+
 	void computeFov();
 	void render(int centerX, int centerY, int renderX, int renderY, int renderWidth, int renderHeight) const;
 	Tile *getTile(int x, int y) const;

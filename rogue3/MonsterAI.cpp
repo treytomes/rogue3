@@ -114,12 +114,11 @@ int MonsterAI::moveOrAttack(Actor *owner)
 	if (currentPath->walk(&x, &y, true))
 	{
 		// TODO: Make sure the first step is actually going somewhere.
-		printf("%s is walking from (%d, %d) to (%d, %d).\n", owner->name, owner->x, owner->y, x, y);
+		printf("%s is walking from (%d, %d) to (%d, %d).\n", owner->name, owner->getX(), owner->getY(), x, y);
 		Stage *currentStage = engine.getCurrentStage();
 		if (currentStage->map->canWalk(x, y))
 		{
-			owner->x = x;
-			owner->y = y;
+			owner->moveTo(x, y);
 			return COST_MOVE;
 		}
 		else
@@ -136,8 +135,8 @@ int MonsterAI::moveOrAttack(Actor *owner)
 
 int MonsterAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 {
-	int dx = targetX - owner->x;
-	int dy = targetY - owner->y;
+	int dx = targetX - owner->getX();
+	int dy = targetY - owner->getY();
 	int stepX = (dx > 0 ? 1 : -1);
 	int stepY = (dy > 0 ? 1 : -1);
 
@@ -149,20 +148,19 @@ int MonsterAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 		dy = (int)round(dy / distance);
 
 		Stage *currentStage = engine.getCurrentStage();
-		if (currentStage->map->canWalk(owner->x + dx, owner->y + dy))
+		if (currentStage->map->canWalk(owner->getX() + dx, owner->getY() + dy))
 		{
-			owner->x += dx;
-			owner->y += dy;
+			owner->moveBy(dx, dy);
 			return COST_MOVE;
 		}
-		else if (currentStage->map->canWalk(owner->x + stepX, owner->y))
+		else if (currentStage->map->canWalk(owner->getX() + stepX, owner->getY()))
 		{
-			owner->x += stepX;
+			owner->moveBy(stepX, 0);
 			return COST_MOVE;
 		}
-		else if (currentStage->map->canWalk(owner->x, owner->y + stepY))
+		else if (currentStage->map->canWalk(owner->getX(), owner->getY() + stepY))
 		{
-			owner->y += stepY;
+			owner->moveBy(0, stepY);
 			return COST_MOVE;
 		}
 		else
@@ -173,7 +171,7 @@ int MonsterAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 	else if (owner->attacker)
 	{
 		// TODO: The target position may not be a player.
-		owner->attacker->attack(owner, owner->x + dx, owner->y + dy);
+		owner->attacker->attack(owner, owner->getX() + dx, owner->getY() + dy);
 		return COST_ATTACK;
 	}
 	else
@@ -202,14 +200,14 @@ Scent *MonsterAI::findSmell(Actor *owner, int smellsLikeId) const
 
 void MonsterAI::calculatePath(Actor *owner, Actor *target)
 {
-	calculatePath(owner, target->x, target->y);
+	calculatePath(owner, target->getX(), target->getY());
 }
 
 void MonsterAI::calculatePath(Actor *owner, int x, int y)
 {
 	currentTargetX = x;
 	currentTargetY = y;
-	currentPath = engine.getCurrentStage()->map->calculatePath(owner->x, owner->y, currentTargetX, currentTargetY, currentPath);
+	currentPath = engine.getCurrentStage()->map->calculatePath(owner->getX(), owner->getY(), currentTargetX, currentTargetY, currentPath);
 
 	// TODO: Base TRACKING_TURNS on actor intelligence.
 	// When the monster chooses a new path, it will keep going along that path until it forgets what it's doing.
@@ -218,8 +216,8 @@ void MonsterAI::calculatePath(Actor *owner, int x, int y)
 
 float MonsterAI::distanceTo(Actor *owner, int x, int y) const
 {
-	int dx = owner->x - x;
-	int dy = owner->y - y;
+	int dx = owner->getX() - x;
+	int dy = owner->getY() - y;
 	return sqrtf(dx * dx + dy * dy);
 }
 
@@ -229,7 +227,7 @@ bool MonsterAI::isInPath(Actor *actor)
 	{
 		return false;
 	}
-	return isInPath(actor->x, actor->y);
+	return isInPath(actor->getX(), actor->getY());
 }
 
 bool MonsterAI::isInPath(int x, int y)
@@ -256,5 +254,5 @@ bool MonsterAI::isInPath(int x, int y)
 
 bool MonsterAI::canSeePlayer(Actor *owner)
 {
-	return engine.getCurrentStage()->map->isInFov(owner->x, owner->y);
+	return engine.getCurrentStage()->map->isInFov(owner->getX(), owner->getY());
 }

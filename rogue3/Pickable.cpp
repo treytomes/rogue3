@@ -48,7 +48,7 @@ void Pickable::drop(Actor *owner, Actor *wearer)
 	if (wearer->container)
 	{
 		wearer->container->remove(owner);
-		if (owner->blocks)
+		if (owner->blocksMovement)
 		{
 			engine.getCurrentStage()->actors.push(owner);
 		}
@@ -57,8 +57,7 @@ void Pickable::drop(Actor *owner, Actor *wearer)
 			engine.getCurrentStage()->actors.insertBefore(owner, 0);
 		}
 
-		owner->x = wearer->x;
-		owner->y = wearer->y;
+		owner->moveTo(wearer->getX(), wearer->getY());
 		engine.ui->message(TCODColor::lightGrey, "%s drops a %s.", wearer->name, owner->name);
 	}
 }

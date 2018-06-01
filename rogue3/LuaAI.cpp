@@ -330,8 +330,8 @@ int LuaAI::l_get_player_position(lua_State *L)
 		LuaAI **ai = static_cast<LuaAI **>(luaL_checkudata(L, 1, "LuaAI"));
 
 		// Return the player's position.
-		lua_pushinteger(L, engine.player->x);
-		lua_pushinteger(L, engine.player->y);
+		lua_pushinteger(L, engine.player->getX());
+		lua_pushinteger(L, engine.player->getY());
 		return 2;
 	}
 	else
@@ -388,8 +388,7 @@ int LuaAI::l_move_by(lua_State *L)
 		// Get the position.
 		int dx = lua_tointeger(L, 2);
 		int dy = lua_tointeger(L, 3);
-		(*owner)->x += dx;
-		(*owner)->y += dy;
+		(*owner)->moveBy(dx, dy);
 		return 0;
 	}
 	else
@@ -448,8 +447,8 @@ int LuaAI::l_get_position(lua_State *L)
 		Actor **owner = static_cast<Actor **>(luaL_checkudata(L, 1, "Actor"));
 
 		// Return the owner's position.
-		lua_pushinteger(L, (*owner)->x);
-		lua_pushinteger(L, (*owner)->y);
+		lua_pushinteger(L, (*owner)->getX());
+		lua_pushinteger(L, (*owner)->getY());
 		return 2;
 	}
 	else

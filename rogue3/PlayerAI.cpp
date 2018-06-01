@@ -44,7 +44,7 @@ int PlayerAI::update(Actor *owner)
 		engine.ui->menu.addItem(LevelUpMenuCode::CONSTITUTION, "Constitution (+20 HP)");
 		engine.ui->menu.addItem(LevelUpMenuCode::STRENGTH, "Strength (+1 attack)");
 		engine.ui->menu.addItem(LevelUpMenuCode::AGILITY, "Agility (+1 defense)");
-		LevelUpMenuCode selectedItem = (LevelUpMenuCode)engine.ui->menu.pick(Menu::PAUSE	);
+		LevelUpMenuCode selectedItem = (LevelUpMenuCode)engine.ui->menu.pick(Menu::PAUSE);
 
 		switch (selectedItem)
 		{
@@ -67,8 +67,8 @@ int PlayerAI::update(Actor *owner)
 	}
 
 	int cost = 0;
-	int playerX = owner->x;
-	int playerY = owner->y;
+	int playerX = owner->getX();
+	int playerY = owner->getY();
 
 	switch (engine.lastKey.vk)
 	{
@@ -129,7 +129,7 @@ int PlayerAI::update(Actor *owner)
 		break;
 	}
 
-	if ((owner->x != playerX) || (owner->y != playerY))
+	if ((owner->getX() != playerX) || (owner->getY() != playerY))
 	{
 		cost += moveOrAttack(owner, playerX, playerY);
 	}
@@ -137,10 +137,10 @@ int PlayerAI::update(Actor *owner)
 	if (cost != 0)
 	{
 		// Player might have moved.
-		engine.getCurrentStage()->map->computeFov();
+		//engine.getCurrentStage()->map->computeFov();
 
 		// Add some player scent to the current tiles.
-		engine.getCurrentStage()->scents.push(new Scent(0, owner->x, owner->y, PLAYER_STINK));
+		engine.getCurrentStage()->scents.push(new Scent(0, owner->getX(), owner->getY(), PLAYER_STINK));
 	}
 
 	return cost;
@@ -151,12 +151,37 @@ int PlayerAI::handleActionKey(Actor *owner, int ascii)
 	int cost = 0;
 	Actor *itemActor = NULL;
 
+	Stage *currentStage = engine.getCurrentStage();
+	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
+	{
+		Actor *actor = *iter;
+		if ((actor != owner) && (actor->ai) && (actor->getX() == owner->getX()) && (actor->getY() == owner->getY()))
+		{
+			cost += actor->ai->handleActionKey(actor, ascii);
+		}
+	}
+	if (cost != 0)
+	{
+		return cost;
+	}
+
+	int actionX = owner->getX();
+	int actionY = owner->getY();
 	switch (ascii)
 	{
-	case 'g': // pickup item under owner
+	case 'e': // examine a space near the owner
+		if (tryChooseDirection(&actionX, &actionY))
+		{
+			tryGetItem(owner, actionX, actionY);
+			cost = COST_GET_ITEM;
+		}
+		break;
+
+	case 'g': // pick up item under owner
 		tryGetItem(owner);
 		cost = COST_GET_ITEM;
 		break;
+
 	case 'i': // view the inventory
 		itemActor = chooseFromInventory(owner);
 		if (itemActor != NULL)
@@ -165,6 +190,7 @@ int PlayerAI::handleActionKey(Actor *owner, int ascii)
 			cost = COST_GET_ITEM;
 		}
 		break;
+
 	case 'd':
 		itemActor = chooseFromInventory(owner);
 		if (itemActor)
@@ -173,29 +199,124 @@ int PlayerAI::handleActionKey(Actor *owner, int ascii)
 			cost = COST_GET_ITEM;
 		}
 		break;
-	}
 
-	Stage *currentStage = engine.getCurrentStage();
-	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
-	{
-		Actor *actor = *iter;
-		if ((actor != owner) && (actor->ai) && (actor->x == owner->x) && (actor->y == owner->y))
+	default:
+		// Wait for an arrow / numpad key to be pressed, then find an actor in that position and send the key there.
+		if (tryChooseDirection(&actionX, &actionY))
 		{
-			cost += actor->ai->handleActionKey(actor, ascii);
+			int actionCost = 0;
+			for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
+			{
+				Actor *actor = *iter;
+				if ((actor != owner) && (actor->ai) && (actor->getX() == actionX) && (actor->getY() == actionY))
+				{
+					engine.ui->message(TCODColor::cyan, "Doing '%c' to %s.", ascii, actor->name);
+					actionCost += actor->ai->handleActionKey(actor, ascii);
+				}
+			}
+			if (actionCost == 0)
+			{
+				engine.ui->message(TCODColor::cyan, "That didn't seem to do anything.");
+			}
+			else
+			{
+				cost += actionCost;
+			}
 		}
+		break;
 	}
 
 	return cost;
 }
 
+bool PlayerAI::tryChooseDirection(int *x, int *y)
+{
+	TCOD_key_t key;
+	bool directionChosen = false;
+	int dx = 0, dy = 0;
+	engine.ui->message(TCODColor::cyan, "Choose a direction.");
+	engine.ui->render();
+	TCODConsole::flush();
+
+	while (!directionChosen)
+	{
+		TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL, true);
+
+		directionChosen = true;
+		switch (key.vk)
+		{
+		case TCODK_KP1:
+			dx--;
+			dy++;
+			break;
+
+		case TCODK_KP2:
+		case TCODK_DOWN:
+			dy++;
+			break;
+
+		case TCODK_KP3:
+			dx++;
+			dy++;
+			break;
+
+		case TCODK_KP4:
+		case TCODK_LEFT:
+			dx--;
+			break;
+
+		case TCODK_KP5:
+			break;
+
+		case TCODK_KP6:
+		case TCODK_RIGHT:
+			dx++;
+			break;
+
+		case TCODK_KP7:
+			dx--;
+			dy--;
+			break;
+
+		case TCODK_KP8:
+		case TCODK_UP:
+			dy--;
+			break;
+
+		case TCODK_KP9:
+			dx++;
+			dy--;
+			break;
+
+		case TCODK_ESCAPE:
+			engine.ui->message(TCODColor::cyan, "Never mind.");
+			break;
+
+		default:
+			directionChosen = false;
+			engine.ui->message(TCODColor::cyan, "That's not a direction.");
+			break;
+		}
+	}
+
+	(*x) += dx;
+	(*y) += dy;
+	return directionChosen;
+}
+
 void PlayerAI::tryGetItem(Actor *owner)
+{
+	tryGetItem(owner, owner->getX(), owner->getY());
+}
+
+void PlayerAI::tryGetItem(Actor *owner, int x, int y)
 {
 	Stage *currentStage = engine.getCurrentStage();
 	bool found = false;
 	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
 		Actor *actor = *iter;
-		if (actor->pickable && (actor->x == owner->x) && (actor->y == owner->y))
+		if (actor->pickable && (actor->getX() == x) && (actor->getY() == y))
 		{
 			if (actor->pickable->pick(actor, owner))
 			{
@@ -268,14 +389,14 @@ int PlayerAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 	for (Actor **iterator = currentStage->actors.begin(); iterator != currentStage->actors.end(); iterator++)
 	{
 		Actor *actor = *iterator;
-		if ((actor->x == targetX) && (actor->y == targetY))
+		if ((actor->getX() == targetX) && (actor->getY() == targetY))
 		{
 			if (actor->destructible && !actor->destructible->isDead())
 			{
 				owner->attacker->attack(owner, targetX, targetY);
 				return COST_ATTACK;
 			}
-			else if (actor->blocks)
+			else if (actor->blocksMovement)
 			{
 				// TODO: actor->interacts?
 				return COST_MOVE_FAIL;
@@ -286,14 +407,13 @@ int PlayerAI::moveOrAttack(Actor *owner, int targetX, int targetY)
 	for (Actor **iterator = currentStage->actors.begin(); iterator != currentStage->actors.end(); iterator++)
 	{
 		Actor *actor = *iterator;
-		if (((actor->destructible && actor->destructible->isDead()) || actor->pickable) && (actor->x == targetX) && (actor->y == targetY))
+		if (((actor->destructible && actor->destructible->isDead()) || actor->pickable) && (actor->getX() == targetX) && (actor->getY() == targetY))
 		{
 			engine.ui->message(TCODColor::lightGrey, "There's a %s here.\n", actor->name);
 		}
 	}
 
-	owner->x = targetX;
-	owner->y = targetY;
+	owner->moveTo(targetX, targetY);
 	return COST_MOVE;
 }
 

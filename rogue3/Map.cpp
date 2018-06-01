@@ -35,13 +35,13 @@ public:
 		// I don't need to delete these in BspListener because they are added to (and delete from) Stage.
 
 		stairsUp = new Actor(0, 0, '<', "stairs up", TCODColor::white);
-		stairsUp->blocks = false;
+		stairsUp->blocksMovement = false;
 		stairsUp->fovOnly = false;
 		stairsUp->ai = new StairsAI(false);
 		engine.getCurrentStage()->actors.insertBefore(stairsUp, 0);
 
 		stairsDown = new Actor(0, 0, '>', "stairs down", TCODColor::white);
-		stairsDown->blocks = false;
+		stairsDown->blocksMovement = false;
 		stairsDown->fovOnly = false;
 		stairsDown->ai = new StairsAI(true);
 		engine.getCurrentStage()->actors.insertBefore(stairsDown, 0);
@@ -50,8 +50,7 @@ public:
 		{
 			// Stairs up are in the same position as the previous stage's stairs down.
 			createRoom(sourceX - ROOM_MAX_SIZE / 2, sourceY - ROOM_MAX_SIZE / 2, ROOM_MAX_SIZE, ROOM_MAX_SIZE);
-			stairsUp->x = sourceX;
-			stairsUp->y = sourceY;
+			stairsUp->moveTo(sourceX, sourceY);
 		}
 	}
 
@@ -100,14 +99,13 @@ public:
 			map.dig(x + w / 2, lastY, x + w / 2, y + h / 2);
 
 			// Put the stairs down in the last room.  Setting this on every room like this will cause it to move to the last room.
-			stairsDown->x = x + w / 2;
-			stairsDown->y = y + h / 2;
+			stairsDown->moveTo(x + w / 2, y + h / 2);
 		}
 		else
 		{
 			// Put the stairs up (and the player) in the first room.
-			engine.player->x = stairsUp->x = x + w / 2;
-			engine.player->y = stairsUp->y = y + h / 2;
+			engine.player->moveTo(x + w / 2, y + h / 2);
+			stairsUp->moveTo(x + w / 2, y + h / 2);
 		}
 
 		lastX = x + w / 2;
@@ -236,7 +234,7 @@ bool Map::canWalk(int x, int y) const
 	for (Actor **iterator = currentStage->actors.begin(); iterator != currentStage->actors.end(); iterator++)
 	{
 		Actor *actor = *iterator;
-		if ((actor->x == x) && (actor->y == y) && actor->blocks)
+		if ((actor->getX() == x) && (actor->getY() == y) && actor->blocksMovement)
 		{
 			// There is an actor here.  Cannot walk.
 			return false;
@@ -252,18 +250,13 @@ bool Map::isWall(int x, int y) const
 	return !map->isWalkable(x, y);
 }
 
-bool Map::isExplored(int x, int y) const
-{
-	return tiles[x + y * width].explored;
-}
-
 bool Map::isInFov(int x, int y) const
 {
 	if ((x < 0) || (x >= width) || (y < 0) || (y >= height))
 	{
 		return false;
 	}
-
+	
 	if (map->isInFov(x, y))
 	{
 		tiles[x + y * width].explored = true;
@@ -272,9 +265,19 @@ bool Map::isInFov(int x, int y) const
 	return false;
 }
 
+bool Map::isExplored(int x, int y) const
+{
+	return tiles[x + y * width].explored;
+}
+
+void Map::setBlocksVision(int x, int y, int value)
+{
+	map->setProperties(x, y, !value, map->isWalkable(x, y));
+}
+
 void Map::computeFov()
 {
-	map->computeFov(engine.player->x, engine.player->y, engine.fovRadius);
+	map->computeFov(engine.player->getX(), engine.player->getY(), engine.fovRadius);
 }
 
 void Map::dig(int x1, int y1, int x2, int y2)
@@ -359,6 +362,7 @@ void Map::addMonster(int x, int y)
 	{
 		// Create a troll (20%).
 		actor = new Actor(x, y, 'T', "troll", TCODColor::darkerGreen);
+		actor->blocksVision = true; // trolls are big
 		actor->speed = 2;
 		actor->attacker = new Attacker(8);
 		actor->destructible = new MonsterDestructible(16, 1, "troll carcass", 100);
@@ -389,7 +393,7 @@ void Map::addItem(int x, int y)
 	{
 		// Create a health potion.
 		Actor *healthPotion = new Actor(x, y, '!', "health potion", TCODColor::violet);
-		healthPotion->blocks = false;
+		healthPotion->blocksMovement = false;
 		healthPotion->pickable = new Healer(4);
 		engine.getCurrentStage()->actors.insertBefore(healthPotion, 0); // it's not blocking, so draw it beneath other actors
 	}
@@ -397,7 +401,7 @@ void Map::addItem(int x, int y)
 	{
 		// Create a scroll of lightning bolt.
 		Actor *scrollOfLightningBolt = new Actor(x, y, '#', "scroll of lightning bolt", TCODColor::lightYellow);
-		scrollOfLightningBolt->blocks = false;
+		scrollOfLightningBolt->blocksMovement = false;
 		scrollOfLightningBolt->pickable = new LightningBolt(5, 20);
 		engine.getCurrentStage()->actors.insertBefore(scrollOfLightningBolt, 0);
 	}
@@ -405,7 +409,7 @@ void Map::addItem(int x, int y)
 	{
 		// Create a scroll of fireball.
 		Actor *scrollOfFireball = new Actor(x, y, '#', "scroll of fireball", TCODColor::lightYellow);
-		scrollOfFireball->blocks = false;
+		scrollOfFireball->blocksMovement = false;
 		scrollOfFireball->pickable = new Fireball(3, 12);
 		engine.getCurrentStage()->actors.insertBefore(scrollOfFireball, 0);
 	}
@@ -413,7 +417,7 @@ void Map::addItem(int x, int y)
 	{
 		// Create a scroll of confusion.
 		Actor *scrollOfConfusion = new Actor(x, y, '#', "scroll of confusion", TCODColor::lightYellow);
-		scrollOfConfusion->blocks = false;
+		scrollOfConfusion->blocksMovement = false;
 		scrollOfConfusion->pickable = new Confuser(10, 8);
 		engine.getCurrentStage()->actors.insertBefore(scrollOfConfusion, 0);
 	}

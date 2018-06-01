@@ -111,6 +111,9 @@
     <ClInclude Include="Scent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DoorAI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -198,6 +201,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DoorAI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

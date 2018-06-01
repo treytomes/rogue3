@@ -41,12 +41,11 @@ int ConfusedMonsterAI::update(Actor *owner)
 
 	if ((dx != 0) || (dy != 0))
 	{
-		int destX = owner->x + dx;
-		int destY = owner->y + dy;
+		int destX = owner->getX() + dx;
+		int destY = owner->getY() + dy;
 		if (engine.getCurrentStage()->map->canWalk(destX, destY))
 		{
-			owner->x = destX;
-			owner->y = destY;
+			owner->moveTo(destX, destY);
 			cost = COST_MOVE;
 		}
 		else

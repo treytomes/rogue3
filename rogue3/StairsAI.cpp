@@ -31,17 +31,19 @@ int StairsAI::update(Actor *owner)
 
 int StairsAI::handleActionKey(Actor *owner, int ascii)
 {
-	if ((engine.player->x == owner->x) && (engine.player->y == owner->y))
-	{
+	//if ((engine.player->x == owner->x) && (engine.player->y == owner->y))
+	//{
 		if (!goingDown && (engine.lastKey.c == '<'))
 		{
-			engine.gotoPreviousStage(owner->x, owner->y);
+			engine.gotoPreviousStage(owner->getX(), owner->getY());
+			return COST_MOVE;
 		}
 		else if (goingDown && (engine.lastKey.c == '>'))
 		{
-			engine.gotoNextStage(owner->x, owner->y);
+			engine.gotoNextStage(owner->getX(), owner->getY());
+			return COST_MOVE;
 		}
-	}
+	//}
 
 	return 0;
 }

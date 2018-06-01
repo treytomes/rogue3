@@ -15,5 +15,5 @@ public:
 	virtual int handleActionKey(Actor *owner, int ascii);
 
 protected:
-	enum AIType { LUA, MONSTER, CONFUSED_MONSTER, PLAYER, STAIRS };
+	enum AIType { LUA, MONSTER, CONFUSED_MONSTER, PLAYER, STAIRS, DOOR };
 };

@@ -26,7 +26,7 @@ bool Healer::use(Actor *owner, Actor *wearer)
 		int amountHealed = wearer->destructible->heal(amount);
 		if (amountHealed > 0)
 		{
-			engine.particles->spawnNumberParticles(wearer->x, wearer->y, amount);
+			engine.particles->spawnNumberParticles(wearer->getX(), wearer->getY(), amount);
 			return Pickable::use(owner, wearer);
 		}
 	}

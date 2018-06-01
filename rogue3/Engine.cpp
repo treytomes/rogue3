@@ -13,7 +13,7 @@ bool query_destructible(Actor *actor)
 
 bool query_destructible(Actor *actor, int x, int y)
 {
-	return (actor->x == x) && (actor->y == y) && query_destructible(actor);
+	return (actor->getX() == x) && (actor->getY() == y) && query_destructible(actor);
 }
 
 Engine::Engine(int screenWidth, int screenHeight)
@@ -176,7 +176,6 @@ void Engine::update()
 
 	if (gameStatus == STARTUP)
 	{
-		getCurrentStage()->map->computeFov();
 		gameStatus = NEW_TURN;
 	}
 	else if (gameStatus == IDLE)
@@ -212,6 +211,7 @@ void Engine::update()
 		}
 	}
 
+	getCurrentStage()->map->computeFov();
 	particles->update();
 }
 
@@ -227,15 +227,15 @@ void Engine::render()
 	Stage *currentStage = getCurrentStage();
 
 	// Draw the map.
-	currentStage->map->render(player->x, player->y, mapX, mapY, mapWidth, mapHeight); // screenWidth, screenHeight - PANEL_HEIGHT);
+	currentStage->map->render(player->getX(), player->getY(), mapX, mapY, mapWidth, mapHeight); // screenWidth, screenHeight - PANEL_HEIGHT);
 
 																					  // Draw the actors.
-	int offsetX = mapX + mapWidth / 2 - player->x;
-	int offsetY = mapY + mapHeight / 2 - player->y;
+	int offsetX = mapX + mapWidth / 2 - player->getX();
+	int offsetY = mapY + mapHeight / 2 - player->getY();
 	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
 		Actor *actor = *iter;
-		if ((!actor->fovOnly && currentStage->map->isExplored(actor->x, actor->y)) || currentStage->map->isInFov(actor->x, actor->y))
+		if ((!actor->fovOnly && currentStage->map->isExplored(actor->getX(), actor->getY())) || currentStage->map->isInFov(actor->getX(), actor->getY()))
 		{
 			actor->render(offsetX, offsetY);
 		}
@@ -289,7 +289,7 @@ Actor *Engine::getActor(int x, int y) const
 	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
 		Actor *actor = *iter;
-		if ((actor->x == x) && (actor->y == y))
+		if ((actor->getX() == x) && (actor->getY() == y))
 		{
 			return actor;
 		}
@@ -318,7 +318,7 @@ int Engine::countItems(int x, int y) const
 	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
 		Actor *actor = *iter;
-		if ((actor->x == x) && (actor->y == y) && actor->pickable)
+		if ((actor->getX() == x) && (actor->getY() == y) && actor->pickable)
 		{
 			numItems++;
 		}
@@ -332,8 +332,8 @@ bool Engine::pickATile(int *x, int *y, float maxRange)
 	int mapY = 0;
 	int mapWidth = screenWidth;
 	int mapHeight = screenHeight - HUDPANEL_HEIGHT;
-	int offsetX = mapX + mapWidth / 2 - player->x;
-	int offsetY = mapY + mapHeight / 2 - player->y;
+	int offsetX = mapX + mapWidth / 2 - player->getX();
+	int offsetY = mapY + mapHeight / 2 - player->getY();
 	Stage *currentStage = getCurrentStage();
 
 	while (!TCODConsole::isWindowClosed())
@@ -408,9 +408,8 @@ void Engine::gotoNextStage(int targetX, int targetY)
 	// This will also be an issue when saving and loading.
 	getCurrentStage()->actors.push(player);
 	// But where do I put the player?
-	player->x = targetX;
-	player->y = targetY;
-	getCurrentStage()->map->computeFov();
+	player->moveTo(targetX, targetY);
+	//getCurrentStage()->map->computeFov();
 	ui->message(TCODColor::red, "After a rare moment of peace, you descent\ndeeper into the heart of the dungeon...");
 }
 
@@ -428,9 +427,8 @@ void Engine::gotoPreviousStage(int targetX, int targetY)
 		currentStageIndex--;
 
 		getCurrentStage()->actors.push(player);
-		player->x = targetX;
-		player->y = targetY;
-		getCurrentStage()->map->computeFov();
-		ui->message(TCODColor::orange, "Poking your head up from the stairs you wonder to yourself, have you seen this place before?");
+		player->moveTo(targetX, targetY);
+		//getCurrentStage()->map->computeFov();
+		ui->message(TCODColor::orange, "Poking your head up from the stairs you wonder to yourself,\nhave you seen this place before?");
 	}
 }

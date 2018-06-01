@@ -48,7 +48,7 @@ void Stage::load(TCODZip &zip)
 	{
 		Actor *actor = new Actor(0, 0, 0, NULL, TCODColor::white);
 		actor->load(zip);
-		if (!actor->blocks)
+		if (!actor->blocksMovement)
 		{
 			actors.insertBefore(actor, 0);
 		}

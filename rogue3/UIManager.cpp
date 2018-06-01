@@ -199,7 +199,7 @@ void UIManager::render()
 	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
 		Actor *actor = *iter;
-		if (actor->destructible && !actor->destructible->isDead() && (actor != engine.player) && currentStage->map->isInFov(actor->x, actor->y))
+		if (actor->destructible && !actor->destructible->isDead() && (actor != engine.player) && currentStage->map->isInFov(actor->getX(), actor->getY()))
 		{
 			renderBar(sidePanel, 1, y, BAR_WIDTH, actor->name, actor->destructible->health, actor->destructible->maxHealth, TCODColor::lightRed, TCODColor::darkerRed);
 			y += 2;
@@ -236,8 +236,8 @@ void UIManager::renderMouseLook()
 	int mapWidth = engine.screenWidth;
 	int mapHeight = engine.screenHeight - HUDPANEL_HEIGHT;
 
-	int offsetX = mapX + mapWidth / 2 - engine.player->x;
-	int offsetY = mapY + mapHeight / 2 - engine.player->y;
+	int offsetX = mapX + mapWidth / 2 - engine.player->getX();
+	int offsetY = mapY + mapHeight / 2 - engine.player->getY();
 
 	int mouseX = engine.mouse.cx - offsetX;
 	int mouseY = engine.mouse.cy - offsetY;
@@ -255,7 +255,7 @@ void UIManager::renderMouseLook()
 	for (Actor **iter = currentStage->actors.begin(); iter != currentStage->actors.end(); iter++)
 	{
 		Actor *actor = *iter;
-		if ((actor->x == mouseX) && (actor->y == mouseY))
+		if ((actor->getX() == mouseX) && (actor->getY() == mouseY))
 		{
 			if (!first)
 			{

@@ -64,7 +64,7 @@ int Destructible::takeDamage(Actor *owner, int damage)
 	{
 		health -= damage;
 
-		engine.particles->spawnNumberParticles(owner->x, owner->y, -damage);
+		engine.particles->spawnNumberParticles(owner->getX(), owner->getY(), -damage);
 
 		if (health <= 0)
 		{
@@ -95,7 +95,9 @@ void Destructible::die(Actor *owner)
 	owner->tileIndex = '%';
 	owner->foregroundColor = TCODColor::darkRed;
 	strcpy(owner->name, corpseName);
-	owner->blocks = false;
+	owner->blocksMovement = false;
+	owner->blocksVision = false;
+	engine.getCurrentStage()->map->setBlocksVision(owner->getX(), owner->getY(), false); // you can always see around a corpse
 
 	// Do dead actors need AI?  Might be more efficient to delete it.  Are resurrecting monsters a thing?
 	if (owner->ai)
@@ -107,5 +109,5 @@ void Destructible::die(Actor *owner)
 	// Make sure corpses are drawn before living actors.
 	engine.sendToBack(owner);
 
-	engine.particles->spawnDeathParticles(owner->x, owner->y);
+	engine.particles->spawnDeathParticles(owner->getX(), owner->getY());
 }

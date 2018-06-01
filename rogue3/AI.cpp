@@ -5,6 +5,7 @@
 #include "ConfusedMonsterAI.h"
 #include "LuaAI.h"
 #include "StairsAI.h"
+#include "DoorAI.h"
 
 AI *AI::create(TCODZip &zip) {
 	AIType type = (AIType)zip.getInt();
@@ -24,6 +25,9 @@ AI *AI::create(TCODZip &zip) {
 		break;
 	case STAIRS:
 		ai = new StairsAI(0);
+		break;
+	case DOOR:
+		ai = new DoorAI();
 		break;
 	}
 	ai->load(zip);
